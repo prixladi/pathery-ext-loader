@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pathery extension loader
 // @namespace    https://github.com/prixladi
-// @version      0.5
+// @version      0.6
 // @description  SHamyr pathery extension loader
 // @author       SHamyr
 // @match        https://www.pathery.com/*
@@ -50,7 +50,7 @@ butt.addEventListener('click', async () => {
 document.getElementById('topbarContent').appendChild(butt);
 
 if(localStorage.getItem("extEnabled")) {
-    if(document.getElementById(libraryId)){
+    if(!document.getElementById(libraryId)){
         loadExt();
     }
 
