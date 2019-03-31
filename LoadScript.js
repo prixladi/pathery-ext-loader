@@ -1,14 +1,26 @@
-const loadExt = async () => {
-    const librartyId = "patheryLibrary";
+const libraryId = "patheryLibraryId";
 
+const butt = document.createElement('a');
+butt.href='#';
+butt.className = "nav";
+
+const updateExtension = async () => {
+    const lib = document.getElementById(libraryId) != null;
+    lib ? removeExt(): loadExt();
+    butt.innerText = !lib ? "Remove extension" : "Add extension";
+};
+
+
+const loadExt = async () => {
     localStorage.setItem("extEnabled", true);
-    if(document.getElementById(librartyId))
+    if(document.getElementById(libraryId)){
         return;
+    }
 
     const response = await fetch('https://raw.githubusercontent.com/WuTheFWasThat/midnighttherapy/master/pathery-full.js');
     if(response.ok) {
         const child = document.createElement('script');
-        child.id = librartyId
+        child.id = libraryId
         child.text = await response.text();
         document.head.appendChild(child);
     }
@@ -29,14 +41,6 @@ if(localStorage.getItem("extEnabled")) {
     loadExt();
 }
 
-const loadButt = document.createElement('a');
-loadButt.className = "nav"
-loadButt.innerText = "Load";
-loadButt.addEventListener('click', loadExt, false);
-document.getElementById('topbarContent').appendChild(loadButt);
-
-const removeButt = document.createElement('a');
-removeButt.className = "nav"
-removeButt.innerText = "Remove";
-removeButt.addEventListener('click', removeExt, false);
-document.getElementById('topbarContent').appendChild(removeButt);
+butt.innerText = document.getElementById(libraryId) ? "Remove extension" : "Add extension";
+butt.addEventListener('click', updateExtension, false);
+document.getElementById('topbarContent').appendChild(butt);
