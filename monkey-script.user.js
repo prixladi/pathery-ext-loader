@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Pathery extension loader
 // @namespace    https://github.com/prixladi
-// @version      0.7
+// @version      0.8
 // @description  SHamyr pathery extension loader
 // @author       SHamyr
 // @match        https://www.pathery.com/*
@@ -28,7 +28,19 @@ const loadExt = async () => {
 };
 
 const removeExt = (lib) => {
-    const center = () => {
+    const cleanGlobal = () => {
+        if(Therapist){
+            const values = document.getElementById("mt_show_values");
+            if(values && values.innerText === "Hide values"){
+                Therapist.toggle_values()
+            }
+        }
+
+        Therapist = null;
+        Analyst = null;
+    }
+
+    const repairCenter = () => {
         const center = document.getElementsByClassName("wrapper pathery-assist-wrapper");
 
         if(center && center[0]){
@@ -54,7 +66,7 @@ const removeExt = (lib) => {
         chat.innerText = "Chat";
 
         newNodes.forEach(x => {
-            if(x.text == "Pathery home") {
+            if(x.text === "Pathery home") {
                 x.text = "Home";
             }
 
@@ -72,8 +84,9 @@ const removeExt = (lib) => {
         }
     }
 
+    cleanGlobal();
     removeLeftBar();
-    center();
+    repairCenter();
     repairTopBar();
 
     if(lib){
