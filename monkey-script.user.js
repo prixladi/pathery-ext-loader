@@ -1,17 +1,7 @@
 // ==UserScript==
 // @name         Pathery extension loader
 // @namespace    https://github.com/prixladi
-// @version      0.4
-// @description  SHamyr pathery extension loader
-// @author       SHamyr
-// @match        https://www.pathery.com/*
-// @grant        none
-// ==/UserScript==
-
-// ==UserScript==
-// @name         Pathery extension loader
-// @namespace    https://github.com/prixladi
-// @version      0.4
+// @version      0.5
 // @description  SHamyr pathery extension loader
 // @author       SHamyr
 // @match        https://www.pathery.com/*
@@ -69,4 +59,3 @@ if(localStorage.getItem("extEnabled")) {
 else {
     butt.innerText = "Add extension";
 }
-
