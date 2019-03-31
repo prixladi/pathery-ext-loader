@@ -1,14 +1,3 @@
-// ==UserScript==
-// @name         Pathery extension loader
-// @namespace    https://github.com/prixladi
-// @version      0.2
-// @description  SHamyr pathery extension loader
-// @author       SHamyr
-// @match        https://www.pathery.com/*
-// @grant        none
-// ==/UserScript==
-
-
 const loadExt = async () => {
     localStorage.setItem("extEnabled", true);
     const response = await fetch('https://raw.githubusercontent.com/WuTheFWasThat/midnighttherapy/master/pathery-full.js');
