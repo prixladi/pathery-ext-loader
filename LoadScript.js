@@ -1,9 +1,5 @@
 const libraryId = "patheryLibraryId";
 
-const butt = document.createElement('a');
-butt.href='#';
-butt.className = "nav";
-
 const loadExt = async () => {
     localStorage.setItem("extEnabled", true);
 
@@ -22,30 +18,84 @@ const loadExt = async () => {
 };
 
 const removeExt = (lib) => {
+    const center = () => {
+        const center = document.getElementsByClassName("wrapper pathery-assist-wrapper");
+
+        if(center && center[0]){
+            center[0].className = "wrapper";
+        }
+    }
+
+    const repairTopBar = () => {
+        const topbar = document.getElementById('topbarContent');
+        const children = topbar.childNodes;
+        let newNodes = [];
+        children.forEach(x => newNodes.push(x.cloneNode(true)));
+
+        while (topbar.hasChildNodes()) {
+            topbar.removeChild(topbar.lastChild);
+        }
+
+        newNodes = newNodes.filter(x => !/.*(beta|ugli|blue|#).*/.test(x.href));
+
+        const chat = document.createElement('a');
+        chat.href='chat';
+        chat.className = "nav";
+        chat.innerText = "Chat";
+
+        newNodes.forEach(x => {
+            if(x.text == "Pathery home") {
+                x.text = "Home";
+            }
+
+            topbar.appendChild(x)
+        });
+
+        topbar.insertBefore(chat, topbar.children[3]);
+        topbar.appendChild(createExt());
+    }
+
+    const removeLeftBar = () => {
+        const leftBar = document.getElementById("mt_left_bar");
+        if(leftBar){
+            leftBar.parentNode.removeChild(leftBar);
+        }
+    }
+
+    removeLeftBar();
+    center();
+    repairTopBar();
+
     if(lib){
         lib.parentNode.removeChild(lib);
     }
-
     localStorage.removeItem("extEnabled");
-    window.location.reload();
+
     console.log("Pathery extension removed.");
 };
 
-butt.addEventListener('click', async () => {
-    const lib = document.getElementById(libraryId);
-    lib ? removeExt(lib): loadExt(lib);
-    butt.innerText = !lib ? "Remove extension" : "Add extension";
-}, false);
+const createExt = () => {
+    const ext = document.createElement('a');
+    ext.href='#';
+    ext.className = "nav";
 
-document.getElementById('topbarContent').appendChild(butt);
+    ext.addEventListener('click', async () => {
+        const lib = document.getElementById(libraryId);
+        lib ? removeExt(lib): await loadExt();
+        ext.innerText = !lib ? "Remove extension" : "Add extension";
+    }, false);
+
+    ext.innerText = "Add extension";
+    return ext;
+}
+
+const ext = createExt();
+document.getElementById('topbarContent').appendChild(ext);
 
 if(localStorage.getItem("extEnabled")) {
     if(!document.getElementById(libraryId)){
         loadExt();
     }
 
-    butt.innerText = "Remove extension";
-}
-else {
-    butt.innerText = "Add extension";
+    ext.innerText = "Remove extension";
 }
