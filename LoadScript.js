@@ -40,7 +40,7 @@ butt.addEventListener('click', async () => {
 document.getElementById('topbarContent').appendChild(butt);
 
 if(localStorage.getItem("extEnabled")) {
-    if(document.getElementById(libraryId)){
+    if(!document.getElementById(libraryId)){
         loadExt();
     }
 
