@@ -29,7 +29,7 @@ if(localStorage.getItem("extEnabled")) {
     loadExt();
 }
 
-const loadButt = document.createElement('button');
+const loadButt = document.createElement('a');
 loadButt.className = "nav"
 loadButt.innerText = "Load";
 loadButt.style.fontSize = "0.8em";
@@ -40,7 +40,8 @@ loadButt.style.background='#000000'
 loadButt.addEventListener('click', () => loadExt(), false);
 document.getElementById('topbarContent').appendChild(loadButt);
 
-const removeButt = document.createElement('button');
+const removeButt = document.createElement('a');
+removeButt.className = "nav"
 removeButt.innerText = "Remove";
 removeButt.style.fontSize = "0.8em";
 removeButt.style.width = "4.5em";
